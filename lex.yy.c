@@ -478,10 +478,10 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "calc3.l"
-#line 2 "calc3.l"
+#line 1 "compiler.l"
+#line 2 "compiler.l"
 #include <stdlib.h>
-#include "calc3.h"
+#include "compiler.h"
 #include "y.tab.h"
 void yyerror(char *);
 #line 488 "lex.yy.c"
@@ -671,7 +671,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 8 "calc3.l"
+#line 8 "compiler.l"
 
 
 
@@ -760,7 +760,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "calc3.l"
+#line 11 "compiler.l"
 { 
                 yylval.sIndex = *yytext - 'a';
                 return VARIABLE;
@@ -768,7 +768,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "calc3.l"
+#line 16 "compiler.l"
 {
                 yylval.iValue = atoi(yytext);
                 return INTEGER;
@@ -776,7 +776,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "calc3.l"
+#line 21 "compiler.l"
 {
                 yylval.iValue = atoi(yytext);
                 return INTEGER;
@@ -784,75 +784,75 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 26 "calc3.l"
+#line 26 "compiler.l"
 {
                 return *yytext;
              }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 30 "calc3.l"
+#line 30 "compiler.l"
 return GE;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 31 "calc3.l"
+#line 31 "compiler.l"
 return LE;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 32 "calc3.l"
+#line 32 "compiler.l"
 return EQ;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 33 "calc3.l"
+#line 33 "compiler.l"
 return NE;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 34 "calc3.l"
+#line 34 "compiler.l"
 return WHILE;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 35 "calc3.l"
+#line 35 "compiler.l"
 return IF;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 36 "calc3.l"
+#line 36 "compiler.l"
 return ELSE;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 37 "calc3.l"
+#line 37 "compiler.l"
 return OUT;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 38 "calc3.l"
+#line 38 "compiler.l"
 return INT;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 39 "calc3.l"
+#line 39 "compiler.l"
 return PRINT;
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 41 "calc3.l"
+#line 41 "compiler.l"
 ;       /* ignore whitespace */
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 43 "calc3.l"
+#line 43 "compiler.l"
 yyerror("");
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 44 "calc3.l"
+#line 44 "compiler.l"
 ECHO;
 	YY_BREAK
 #line 859 "lex.yy.c"
@@ -1853,7 +1853,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 44 "calc3.l"
+#line 44 "compiler.l"
 
 
 int yywrap(void) {

@@ -1,7 +1,0 @@
-int x = 0;
-if (x < 3){
-cout << x;
-}
-else{
-cout << 3;
-}

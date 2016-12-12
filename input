@@ -4,8 +4,9 @@ cout << x;
 cout << y;
 }
 else{
-cout << 3;
+cout << z;
 }
-while (x<3){
-cout << 7;
+while(1)
+{
+cout << 1;
 }

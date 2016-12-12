@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "calc3.h"
+#include "compiler.h"
 
 /* prototypes */
 nodeType *opr(int oper, int nops, ...);
 nodeType *id(int i);
 nodeType *con(int value);
 void freeNode(nodeType *p);
-int ex(nodeType *p,int enter, int tabnum);
+int ex(nodeType *p,int enter);
 int yylex(void);
 
 void yyerror(char *s);
@@ -43,7 +43,7 @@ program:
         ;
 
 function:
-          function stmt         { ex($2,0,0); freeNode($2); }
+          function stmt         { ex($2,0); freeNode($2); }
         | /* NULL */
         ;
 
