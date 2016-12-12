@@ -1,12 +1,4 @@
-int x = 0;
-if (x < 3){
-cout << x;
-cout << y;
-}
-else{
-cout << z;
-}
-while(1)
+for(i = 3;i<6;i++)
 {
-cout << 1;
+ x = 3;
 }

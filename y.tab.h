@@ -48,34 +48,48 @@ extern int yydebug;
     INTEGER = 258,
     VARIABLE = 259,
     WHILE = 260,
-    IF = 261,
-    PRINT = 262,
-    INT = 263,
-    IFX = 264,
-    ELSE = 265,
-    GE = 266,
-    LE = 267,
-    EQ = 268,
-    NE = 269,
-    OUT = 270,
-    UMINUS = 271
+    FOR = 261,
+    IF = 262,
+    PRINT = 263,
+    INT = 264,
+    INPUT = 265,
+    ADDONE = 266,
+    MINUONE = 267,
+    CHAR = 268,
+    DOUBLE = 269,
+    IFX = 270,
+    ELSE = 271,
+    GE = 272,
+    LE = 273,
+    EQ = 274,
+    NE = 275,
+    OUT = 276,
+    IN = 277,
+    UMINUS = 278
   };
 #endif
 /* Tokens.  */
 #define INTEGER 258
 #define VARIABLE 259
 #define WHILE 260
-#define IF 261
-#define PRINT 262
-#define INT 263
-#define IFX 264
-#define ELSE 265
-#define GE 266
-#define LE 267
-#define EQ 268
-#define NE 269
-#define OUT 270
-#define UMINUS 271
+#define FOR 261
+#define IF 262
+#define PRINT 263
+#define INT 264
+#define INPUT 265
+#define ADDONE 266
+#define MINUONE 267
+#define CHAR 268
+#define DOUBLE 269
+#define IFX 270
+#define ELSE 271
+#define GE 272
+#define LE 273
+#define EQ 274
+#define NE 275
+#define OUT 276
+#define IN 277
+#define UMINUS 278
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -88,7 +102,7 @@ union YYSTYPE
     char sIndex;                /* symbol table index */
     nodeType *nPtr;             /* node pointer */
 
-#line 92 "y.tab.h" /* yacc.c:1909  */
+#line 106 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

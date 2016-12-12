@@ -1,6 +1,9 @@
-int x = 0;
-if x < 3:
-    cout << x;
-else:
-    cout << 3;
+for(i;j;k)
+{
+x = 3;
+}
 
+i
+while j:
+	x = 3
+        k

@@ -42,9 +42,20 @@ int ex(nodeType *p) {
             ex(p->opr.op[1]);
             numOfTab--;
             break;
+        case FOR:
+            //printf("sw:3\n");
+            ex(p->opr.op[0]);
+            printf("\n");
+            printTab();
+	    printf("while ");
+            ex(p->opr.op[1]);
+            printf(":\n");
+            numOfTab++;
+            ex(p->opr.op[3]);
+            ex(p->opr.op[2]);
+            numOfTab--;
+            break;
         case IF:
-	    //printf("%d\n",p->opr.nops);
-            //ex(p->opr.op[0],0);
             //printf("sw:4\n");
             if (p->opr.nops > 2) {
                 /* if else */
@@ -81,11 +92,37 @@ int ex(nodeType *p) {
             ex(p->opr.op[0]);
             printf(")\n");
             break;
+        case INPUT:
+            //printf("sw:9\n");  
+	    printTab();
+            ex(p->opr.op[0]);
+            printf(" = input()\n");
+            break;
         case '=':     
             //printf("sw:6\n");  
+            printTab();
             printf("%c = ", p->opr.op[0]->id.i + 'a');
             ex(p->opr.op[1]);
 	    printf("\n");
+            break;
+        case CHAR:     
+            //printf("sw:6\n");  
+            printTab();
+            printf("%c = '", p->opr.op[0]->id.i + 'a');
+            ex(p->opr.op[1]);
+	    printf("'\n");
+            break;
+        case ADDONE:
+            //printf("sw:10\n");  
+	    printTab();
+            ex(p->opr.op[0]);
+            printf(" += 1\n");
+            break;
+        case MINUONE:
+            //printf("sw:10\n");  
+	    printTab();
+            ex(p->opr.op[0]);
+            printf(" -= 1\n");
             break;
         case UMINUS:   
             //printf("sw:7\n"); 
@@ -97,25 +134,19 @@ int ex(nodeType *p) {
             ex(p->opr.op[0]);
             switch(p->opr.oper) {
             case '+':   printf("+"); break;
-            case '-':   printf("\tsub\n"); break; 
-            case '*':   printf("\tmul\n"); break;
-            case '/':   printf("\tdiv\n"); break;
+            case '-':   printf("-"); break; 
+            case '*':   printf("*"); break;
+            case '/':   printf("/"); break;
             case '<':   printf("<"); break;
             case '>':   printf(">"); break;
-            case GE:    printf("\tcompGE\n"); break;
-            case LE:    printf("\tcompLE\n"); break;
-            case NE:    printf("\tcompNE\n"); break;
-            case EQ:    printf("\tcompEQ\n"); break;
+            case GE:    printf(">="); break;
+            case LE:    printf("<="); break;
+            case NE:    printf("!="); break;
+            case EQ:    printf("=="); break;
             }
             ex(p->opr.op[1]);
         }
     }
-    //if(enter == 1)
-//	printf("\n");
-//    else if(enter == 2)
-//        printf(")\n");
-//    else if(enter == 3)
-//	printf(":\n"); 
 
     return 0;
 

@@ -32,11 +32,18 @@ void yyerror(char *);
 "=="            return EQ;
 "!="            return NE;
 "while"         return WHILE;
+"for"           return FOR;
 "if"            return IF;
 "else"          return ELSE;
 "<<"            return OUT;
+">>"            return IN;
+"++"            return ADDONE;
+"--"            return MINUONE;
 "int"           return INT;
-"cout"         return PRINT;
+"char"          return CHAR;
+"double"        return DOUBLE;
+"cout"          return PRINT;
+"cin"           return INPUT;
 
 [ \t\n]+        ;       /* ignore whitespace */
 
