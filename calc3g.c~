@@ -68,7 +68,6 @@ void exNode
 
     strcpy (word, "???"); /* should never appear */
     s = word;
-    printf("type:%d\n",p->type);
     switch(p->type) {
         case typeCon: sprintf (word, "c(%d)", p->con.value); break;
         case typeId:  sprintf (word, "id(%c)", p->id.i + 'A'); break;

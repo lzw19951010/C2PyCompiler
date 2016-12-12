@@ -5,9 +5,6 @@
 static int lbl;
 
 int ex(nodeType *p, int enter, int tabnum) {
-    
-    int i;
-
     if(enter > 0)
     {
 	for(i = 0;i < tabnum;i++)
@@ -15,6 +12,7 @@ int ex(nodeType *p, int enter, int tabnum) {
             printf("\t");
 	}
     }
+    int i;
 
     if (!p) return 0;
 

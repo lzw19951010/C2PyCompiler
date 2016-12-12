@@ -34,9 +34,10 @@ void yyerror(char *);
 "while"         return WHILE;
 "if"            return IF;
 "else"          return ELSE;
+"cout"          return COUT;
 "<<"            return OUT;
 "int"           return INT;
-"cout"         return PRINT;
+"print"         return PRINT;
 
 [ \t\n]+        ;       /* ignore whitespace */
 

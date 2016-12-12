@@ -1,6 +1,7 @@
-a = 3;
-if(a == 3)
-{
-  print(1);
+int x = 0;
+if (x < 3){
+cout << x;
 }
-  
+else{
+cout << 3;
+}
