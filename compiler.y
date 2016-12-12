@@ -9,7 +9,7 @@ nodeType *opr(int oper, int nops, ...);
 nodeType *id(int i);
 nodeType *con(int value);
 void freeNode(nodeType *p);
-int ex(nodeType *p,int enter);
+int ex(nodeType *p);
 int yylex(void);
 
 void yyerror(char *s);
@@ -43,7 +43,7 @@ program:
         ;
 
 function:
-          function stmt         { ex($2,0); freeNode($2); }
+          function stmt         { ex($2); freeNode($2); }
         | /* NULL */
         ;
 

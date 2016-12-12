@@ -14,7 +14,7 @@ void printTab()
     }
 }
 
-int ex(nodeType *p, int enter) {
+int ex(nodeType *p) {
     
     int i;    
 
@@ -36,9 +36,10 @@ int ex(nodeType *p, int enter) {
             //printf("sw:3\n");
             printTab();
 	    printf("while ");
-            ex(p->opr.op[0],3);
+            ex(p->opr.op[0]);
+            printf(":\n");
             numOfTab++;
-            ex(p->opr.op[1],1);
+            ex(p->opr.op[1]);
             numOfTab--;
             break;
         case IF:
@@ -49,22 +50,27 @@ int ex(nodeType *p, int enter) {
                 /* if else */
                 printTab();
                 printf("if ");
-                ex(p->opr.op[0],3);
+                ex(p->opr.op[0]);
+	        printf(":\n");
 		numOfTab++;
-                ex(p->opr.op[1],1);
+                ex(p->opr.op[1]);
+                printf("\n");
 		numOfTab--;
 		printTab();
                 printf("else:\n");
 		numOfTab++;
-                ex(p->opr.op[2],1);
+                ex(p->opr.op[2]);
+                printf("\n");
 		numOfTab--;
             } else {
                 /* if */
                 printTab();
                 printf("if ");
-                ex(p->opr.op[0],3);
+                ex(p->opr.op[0]);
+	        printf(":\n");
 		numOfTab++;	
-                ex(p->opr.op[1],1);
+                ex(p->opr.op[1]);
+                printf("\n");
 		numOfTab--;
             }
             break;
@@ -72,21 +78,23 @@ int ex(nodeType *p, int enter) {
             //printf("sw:5\n");
 	    printTab();
             printf("print(");
-            ex(p->opr.op[0],2);
+            ex(p->opr.op[0]);
+            printf(")\n");
             break;
         case '=':     
             //printf("sw:6\n");  
             printf("%c = ", p->opr.op[0]->id.i + 'a');
-            ex(p->opr.op[1],1);
+            ex(p->opr.op[1]);
+	    printf("\n");
             break;
         case UMINUS:   
             //printf("sw:7\n"); 
-            ex(p->opr.op[0],0);
+            ex(p->opr.op[0]);
             printf("UNIMUS");
             break;
         default:
             //printf("sw:8\n");
-            ex(p->opr.op[0],0);
+            ex(p->opr.op[0]);
             switch(p->opr.oper) {
             case '+':   printf("+"); break;
             case '-':   printf("\tsub\n"); break; 
@@ -99,15 +107,15 @@ int ex(nodeType *p, int enter) {
             case NE:    printf("\tcompNE\n"); break;
             case EQ:    printf("\tcompEQ\n"); break;
             }
-            ex(p->opr.op[1],0);
+            ex(p->opr.op[1]);
         }
     }
-    if(enter == 1)
-	printf("\n");
-    else if(enter == 2)
-        printf(")\n");
-    else if(enter == 3)
-	printf(":\n"); 
+    //if(enter == 1)
+//	printf("\n");
+//    else if(enter == 2)
+//        printf(")\n");
+//    else if(enter == 3)
+//	printf(":\n"); 
 
     return 0;
 

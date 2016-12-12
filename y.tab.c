@@ -74,7 +74,7 @@ nodeType *opr(int oper, int nops, ...);
 nodeType *id(int i);
 nodeType *con(int value);
 void freeNode(nodeType *p);
-int ex(nodeType *p,int enter);
+int ex(nodeType *p);
 int yylex(void);
 
 void yyerror(char *s);
@@ -1310,7 +1310,7 @@ yyreduce:
 
   case 3:
 #line 46 "compiler.y" /* yacc.c:1646  */
-    { ex((yyvsp[0].nPtr),0); freeNode((yyvsp[0].nPtr)); }
+    { ex((yyvsp[0].nPtr)); freeNode((yyvsp[0].nPtr)); }
 #line 1315 "y.tab.c" /* yacc.c:1646  */
     break;
 
