@@ -1,4 +1,8 @@
-for(i = 3;i<6;i++)
+void get_next(int ab, int c)
 {
- x = 3;
+	for(i = 0; i < 2; i++)
+	{
+		cout << ab;
+	}
+	return ab;
 }

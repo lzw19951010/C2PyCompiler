@@ -28,7 +28,7 @@ int ex(nodeType *p) {
         break;
     case typeId:        
         //printf("sw:2\n");
-        printf("%c", p->id.i + 'a');
+        printf("%s", p->id.s);
         break;
     case typeOpr:
         switch(p->opr.oper) {
@@ -45,13 +45,24 @@ int ex(nodeType *p) {
         case FOR:
             //printf("sw:3\n");
             ex(p->opr.op[0]);
-            printf("\n");
             printTab();
 	    printf("while ");
             ex(p->opr.op[1]);
             printf(":\n");
             numOfTab++;
             ex(p->opr.op[3]);
+            ex(p->opr.op[2]);
+            numOfTab--;
+            break;
+        case VOID:
+            //printf("sw:3\n");
+            printTab();
+            printf("def ");
+            ex(p->opr.op[0]);
+            printf("(");
+            ex(p->opr.op[1]);
+            printf("):\n");
+            numOfTab++;
             ex(p->opr.op[2]);
             numOfTab--;
             break;
@@ -101,16 +112,33 @@ int ex(nodeType *p) {
         case '=':     
             //printf("sw:6\n");  
             printTab();
-            printf("%c = ", p->opr.op[0]->id.i + 'a');
+            printf("%s = ", p->opr.op[0]->id.s);
             ex(p->opr.op[1]);
 	    printf("\n");
+            break;
+        case '[':     
+            printTab();
+            printf("%s[", p->opr.op[0]->id.s);
+            ex(p->opr.op[1]);
+        printf("]\n");
+            break;
+        case ',':
+            ex(p->opr.op[0]);
+            printf(",");
+            ex(p->opr.op[1]);
             break;
         case CHAR:     
             //printf("sw:6\n");  
             printTab();
-            printf("%c = '", p->opr.op[0]->id.i + 'a');
+            printf("%s = '", p->opr.op[0]->id.s);
             ex(p->opr.op[1]);
 	    printf("'\n");
+            break;
+        case RETURN:
+            printTab();
+            printf("return ");
+            ex(p->opr.op[0]);
+            printf("\n");
             break;
         case ADDONE:
             //printf("sw:10\n");  

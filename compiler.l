@@ -8,10 +8,6 @@ void yyerror(char *);
 %%
 
 
-[a-z]       { 
-                yylval.sIndex = *yytext - 'a';
-                return VARIABLE;
-            }
 
 0           {
                 yylval.iValue = atoi(yytext);
@@ -23,7 +19,7 @@ void yyerror(char *);
                 return INTEGER;
             }
 
-[-()<>=+*/;{}.] {
+[-\[\]()<>=+*/,;{}.] {
                 return *yytext;
              }
 
@@ -40,14 +36,21 @@ void yyerror(char *);
 "++"            return ADDONE;
 "--"            return MINUONE;
 "int"           return INT;
+"void"          return VOID;
 "char"          return CHAR;
 "double"        return DOUBLE;
 "cout"          return PRINT;
 "cin"           return INPUT;
+"return"        return RETURN;
 
-[ \t\n]+        ;       /* ignore whitespace */
+[a-zA-Z][_a-zA-Z0-9]*       { 
+                strcpy(yylval.sIndex,yytext);
+                return VARIABLE;
+            }
 
-.               yyerror("");
+[ \t\n'"]+        ;       /* ignore whitespace */
+
+.               yyerror("UnknownC");
 %%
 int yywrap(void) {
     return 1;

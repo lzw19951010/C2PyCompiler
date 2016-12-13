@@ -57,15 +57,17 @@ extern int yydebug;
     MINUONE = 267,
     CHAR = 268,
     DOUBLE = 269,
-    IFX = 270,
-    ELSE = 271,
-    GE = 272,
-    LE = 273,
-    EQ = 274,
-    NE = 275,
-    OUT = 276,
-    IN = 277,
-    UMINUS = 278
+    VOID = 270,
+    RETURN = 271,
+    IFX = 272,
+    ELSE = 273,
+    GE = 274,
+    LE = 275,
+    EQ = 276,
+    NE = 277,
+    OUT = 278,
+    IN = 279,
+    UMINUS = 280
   };
 #endif
 /* Tokens.  */
@@ -81,15 +83,17 @@ extern int yydebug;
 #define MINUONE 267
 #define CHAR 268
 #define DOUBLE 269
-#define IFX 270
-#define ELSE 271
-#define GE 272
-#define LE 273
-#define EQ 274
-#define NE 275
-#define OUT 276
-#define IN 277
-#define UMINUS 278
+#define VOID 270
+#define RETURN 271
+#define IFX 272
+#define ELSE 273
+#define GE 274
+#define LE 275
+#define EQ 276
+#define NE 277
+#define OUT 278
+#define IN 279
+#define UMINUS 280
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -99,10 +103,10 @@ union YYSTYPE
 #line 19 "compiler.y" /* yacc.c:1909  */
 
     int iValue;                 /* integer value */
-    char sIndex;                /* symbol table index */
+    char sIndex[80];                /* symbol table index */
     nodeType *nPtr;             /* node pointer */
 
-#line 106 "y.tab.h" /* yacc.c:1909  */
+#line 110 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

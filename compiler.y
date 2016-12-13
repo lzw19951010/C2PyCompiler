@@ -6,7 +6,7 @@
 
 /* prototypes */
 nodeType *opr(int oper, int nops, ...);
-nodeType *id(int i);
+nodeType *id(char* s);
 nodeType *con(int value);
 void freeNode(nodeType *p);
 int ex(nodeType *p);
@@ -18,13 +18,13 @@ int sym[26];                    /* symbol table */
 
 %union {
     int iValue;                 /* integer value */
-    char sIndex;                /* symbol table index */
+    char sIndex[80];                /* symbol table index */
     nodeType *nPtr;             /* node pointer */
 };
 
 %token <iValue> INTEGER
 %token <sIndex> VARIABLE
-%token WHILE FOR IF PRINT INT INPUT ADDONE MINUONE CHAR DOUBLE
+%token WHILE FOR IF PRINT INT INPUT ADDONE MINUONE CHAR DOUBLE VOID RETURN
 %nonassoc IFX
 %nonassoc ELSE
 
@@ -34,7 +34,7 @@ int sym[26];                    /* symbol table */
 %left OUT IN
 %nonassoc UMINUS
 
-%type <nPtr> stmt expr stmt_list
+%type <nPtr> stmt expr stmt_list argument argument_list
 
 %%
 
@@ -60,6 +60,9 @@ stmt:
         | DOUBLE VARIABLE '=' expr ';'   { $$ = opr('=', 2, id($2), $4); }//printf("fuck:13\n");}
         | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); }//printf("fuck:5\n");}
         | FOR '(' expr ';' expr ';' expr ')' stmt        { $$ = opr(FOR, 4, $3, $5, $7, $9); }//printf("fuck:15\n");}
+        | VOID expr '(' argument_list ')' stmt    { $$ = opr(VOID, 3, $2, $4, $6); }
+        | INT expr '(' argument_list ')' stmt    { $$ = opr(VOID, 3, $2, $4, $6); }
+        | RETURN expr ';'                { $$ = opr(RETURN, 1, $2);}
         | IF '(' expr ')' stmt %prec IFX { $$ = opr(IF, 2, $3, $5); }//printf("fuck:6\n");}
         | IF '(' expr ')' stmt ELSE stmt { $$ = opr(IF, 3, $3, $5, $7); }//printf("fuck:7\n");}
         | '{' stmt_list '}'              { $$ = $2; }//printf("fuck:8\n");}
@@ -68,6 +71,17 @@ stmt:
 stmt_list:
           stmt                  { $$ = $1; }
         | stmt_list stmt        { $$ = opr(';', 2, $1, $2); }
+        ;
+
+argument:
+          INT VARIABLE          { $$ = id($2);}
+        | CHAR VARIABLE         { $$ = id($2);}
+        | DOUBLE VARIABLE       { $$ = id($2);}
+        ;
+
+argument_list:
+          argument               { $$ = $1; }
+        | argument_list ',' argument { $$ = opr(',', 2, $1, $3); }
         ;
 
 expr:
@@ -81,6 +95,7 @@ expr:
         | expr '<' expr         { $$ = opr('<', 2, $1, $3); }//printf("ex:8\n");}
         | expr '>' expr         { $$ = opr('>', 2, $1, $3); }//printf("ex:9\n");}
         | expr '=' expr         { $$ = opr('=', 2, $1, $3); }//printf("ex:9\n");}
+        | expr '[' expr ']'     { $$ = opr('[', 2, $1, $3); }
         | expr GE expr          { $$ = opr(GE, 2, $1, $3); }//printf("ex:10\n");}
         | expr LE expr          { $$ = opr(LE, 2, $1, $3); }//printf("ex:11\n");}
         | expr NE expr          { $$ = opr(NE, 2, $1, $3); }//printf("ex:12\n");}
@@ -105,7 +120,7 @@ nodeType *con(int value) {
     return p;
 }
 
-nodeType *id(int i) {
+nodeType *id(char* s) {
     nodeType *p;
 
     /* allocate node */
@@ -114,8 +129,7 @@ nodeType *id(int i) {
 
     /* copy information */
     p->type = typeId;
-    p->id.i = i;
-
+    strcpy(p->id.s,s);
     return p;
 }
 
