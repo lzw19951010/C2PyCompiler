@@ -82,7 +82,6 @@ int ex(nodeType *p) {
                 printf("else:\n");
 		numOfTab++;
                 ex(p->opr.op[2]);
-                printf("\n");
 		numOfTab--;
             } else {
                 /* if */
@@ -92,7 +91,6 @@ int ex(nodeType *p) {
 	        printf(":\n");
 		numOfTab++;	
                 ex(p->opr.op[1]);
-                printf("\n");
 		numOfTab--;
             }
             break;
