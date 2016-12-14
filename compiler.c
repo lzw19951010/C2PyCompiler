@@ -110,17 +110,35 @@ int ex(nodeType *p) {
             printf(" = input()\n");
             break;
         case '=':     
-            //printf("sw:6\n");  
-            printTab();
-            printf("%s = ", p->opr.op[0]->id.s);
-            ex(p->opr.op[1]);
-	    printf("\n");
+            //printf("sw:7\n");  
+
+
+                printTab();
+                ex(p->opr.op[0]);
+                printf(" = ");
+
+                ex(p->opr.op[1]);
+
+	        printf("\n");
+
             break;
         case '[':     
-            printTab();
-            printf("%s[", p->opr.op[0]->id.s);
-            ex(p->opr.op[1]);
-        printf("]\n");
+
+		printTab();
+
+		printf("%s = [0] * (", p->opr.op[0]->id.s);
+
+		ex(p->opr.op[1]);
+
+		printf(")\n");
+
+
+            break;
+        case ']':
+            //printf("fuck\n");
+	    printf("%s[", p->opr.op[0]->id.s);
+	    ex(p->opr.op[1]);
+            printf("]");
             break;
         case ',':
             ex(p->opr.op[0]);
@@ -139,6 +157,20 @@ int ex(nodeType *p) {
             printf("return ");
             ex(p->opr.op[0]);
             printf("\n");
+            break;
+        case AND:
+            printf("(");
+            ex(p->opr.op[0]);
+            printf(" and ");
+            ex(p->opr.op[1]);
+            printf(")");
+            break;
+        case OR:
+            printf("(");
+            ex(p->opr.op[0]);
+            printf(" or ");
+            ex(p->opr.op[1]);
+            printf(")");
             break;
         case ADDONE:
             //printf("sw:10\n");  

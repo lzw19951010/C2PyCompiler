@@ -28,13 +28,14 @@ int sym[26];                    /* symbol table */
 %nonassoc IFX
 %nonassoc ELSE
 
+%left AND OR
 %left GE LE EQ NE '>' '<'
 %left '+' '-'
 %left '*' '/'
 %left OUT IN
 %nonassoc UMINUS
 
-%type <nPtr> stmt expr stmt_list argument argument_list
+%type <nPtr> stmt expr expr_list stmt_list argument argument_list
 
 %%
 
@@ -56,6 +57,9 @@ stmt:
         | expr MINUONE ';'               { $$ = opr(MINUONE, 1, $1); }//printf("fuck:14\n");}
         | VARIABLE '=' expr ';'          { $$ = opr('=', 2, id($1), $3); }//printf("fuck:4\n");}
         | INT VARIABLE '=' expr ';'      { $$ = opr('=', 2, id($2), $4); }//printf("fuck:12\n");}
+	| INT VARIABLE '[' expr ']' ';'     { $$ = opr('[', 2, id($2), $4); }//printf("fuck:13\n");}
+        | CHAR VARIABLE '[' expr ']' ';'    { $$ = opr('[', 2, id($2), $4); }//printf("fuck:14\n");}
+        | DOUBLE VARIABLE '[' expr ']' ';'  { $$ = opr('[', 2, id($2), $4); }//printf("fuck:15\n");}
         | CHAR VARIABLE '=' expr ';'     { $$ = opr(CHAR, 2, id($2), $4); }//printf("fuck:9\n");}
         | DOUBLE VARIABLE '=' expr ';'   { $$ = opr('=', 2, id($2), $4); }//printf("fuck:13\n");}
         | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); }//printf("fuck:5\n");}
@@ -95,13 +99,21 @@ expr:
         | expr '<' expr         { $$ = opr('<', 2, $1, $3); }//printf("ex:8\n");}
         | expr '>' expr         { $$ = opr('>', 2, $1, $3); }//printf("ex:9\n");}
         | expr '=' expr         { $$ = opr('=', 2, $1, $3); }//printf("ex:9\n");}
-        | expr '[' expr ']'     { $$ = opr('[', 2, $1, $3); }
+        | VARIABLE '[' expr ']' { $$ = opr(']', 2, id($1), $3); }//printf("ex:10\n");}
         | expr GE expr          { $$ = opr(GE, 2, $1, $3); }//printf("ex:10\n");}
         | expr LE expr          { $$ = opr(LE, 2, $1, $3); }//printf("ex:11\n");}
         | expr NE expr          { $$ = opr(NE, 2, $1, $3); }//printf("ex:12\n");}
         | expr EQ expr          { $$ = opr(EQ, 2, $1, $3); }//printf("ex:13\n");}
         | '(' expr ')'          { $$ = $2; }//printf("ex:14\n");}
         | expr ADDONE           { $$ = opr(ADDONE, 1, $1); }//printf("ex:14\n");}
+        | expr AND expr_list          { $$ = opr(AND, 2, $1, $3); }//printf("ex:14\n");}
+        | expr OR expr_list          { $$ = opr(OR, 2, $1, $3); }//printf("ex:14\n");}
+        ;
+
+expr_list:
+          expr               { $$ = $1; }
+        | expr AND expr_list { $$ = opr(AND, 2, $1, $3); }
+        | expr OR expr_list { $$ = opr(OR, 2, $1, $3); }
         ;
 
 %%

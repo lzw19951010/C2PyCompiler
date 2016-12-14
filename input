@@ -1,8 +1,4 @@
-void get_next(int ab, int c)
+if(a[0] == 3 || (a < 3 && a >2))
 {
-	for(i = 0; i < 2; i++)
-	{
-		cout << ab;
-	}
-	return ab;
+cout << a;
 }

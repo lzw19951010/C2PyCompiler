@@ -27,6 +27,8 @@ void yyerror(char *);
 "<="            return LE;
 "=="            return EQ;
 "!="            return NE;
+"&&"            return AND;
+"||"            return OR;
 "while"         return WHILE;
 "for"           return FOR;
 "if"            return IF;
@@ -50,7 +52,7 @@ void yyerror(char *);
 
 [ \t\n'"]+        ;       /* ignore whitespace */
 
-.               yyerror("UnknownC");
+.               yyerror("UNKNOWNC");
 %%
 int yywrap(void) {
     return 1;

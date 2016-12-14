@@ -1,1 +1,9 @@
-x = 0;
+void get_next(int ab, int c)
+{
+	for(i = 0; i < 2; i++)
+	{
+		cout << ab;
+	}
+	return ab;
+}
+

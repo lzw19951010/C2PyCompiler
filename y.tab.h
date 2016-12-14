@@ -61,13 +61,15 @@ extern int yydebug;
     RETURN = 271,
     IFX = 272,
     ELSE = 273,
-    GE = 274,
-    LE = 275,
-    EQ = 276,
-    NE = 277,
-    OUT = 278,
-    IN = 279,
-    UMINUS = 280
+    AND = 274,
+    OR = 275,
+    GE = 276,
+    LE = 277,
+    EQ = 278,
+    NE = 279,
+    OUT = 280,
+    IN = 281,
+    UMINUS = 282
   };
 #endif
 /* Tokens.  */
@@ -87,13 +89,15 @@ extern int yydebug;
 #define RETURN 271
 #define IFX 272
 #define ELSE 273
-#define GE 274
-#define LE 275
-#define EQ 276
-#define NE 277
-#define OUT 278
-#define IN 279
-#define UMINUS 280
+#define AND 274
+#define OR 275
+#define GE 276
+#define LE 277
+#define EQ 278
+#define NE 279
+#define OUT 280
+#define IN 281
+#define UMINUS 282
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -106,7 +110,7 @@ union YYSTYPE
     char sIndex[80];                /* symbol table index */
     nodeType *nPtr;             /* node pointer */
 
-#line 110 "y.tab.h" /* yacc.c:1909  */
+#line 114 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
