@@ -37,6 +37,27 @@ int ex(nodeType *p) {
         	ex(p->opr.op[0]);
         	printf("\n");
         	break;
+        case '?':
+            if (p->opr.nops == 2) {
+            printTab();
+            ex(p->opr.op[0]);
+            printf(" = \"");
+            ex(p->opr.op[1]);
+            printf("\"\n");
+            }
+            else if (p->opr.nops == 3) {
+            printTab();
+            ex(p->opr.op[0]);
+            printf("[");
+            ex(p->opr.op[1]);
+            printf("] = \"");
+            ex(p->opr.op[2]);
+            printf("\"\n");
+            } 
+            else{
+            printf("\n");
+            }
+            break;
         case WHILE:
             //printf("sw:3\n");
             printTab();

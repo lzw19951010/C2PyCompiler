@@ -56,6 +56,11 @@ stmt:
         | expr MINUONE ';'               { $$ = opr(MINUONE, 1, $1); }//printf("fuck:14\n");}
         | VARIABLE '=' expr ';'          { $$ = opr('=', 2, id($1), $3); }//printf("fuck:4\n");}
         | INT VARIABLE '=' expr ';'      { $$ = opr('=', 2, id($2), $4); }//printf("fuck:12\n");}
+        | INT VARIABLE ';'      { $$ = opr('?', 1, id($2)); }//printf("fuck:12\n");}
+        | DOUBLE VARIABLE ';'      { $$ = opr('?', 1, id($2)); }//printf("fuck:12\n");}
+        | CHAR VARIABLE ';'      { $$ = opr('?', 1, id($2)); }//printf("fuck:12\n");}
+        | CHAR VARIABLE '[' ']' '=' '"' VARIABLE '"' ';'      { $$ = opr('?', 2, id($2), id($7)); }//printf("fuck:12\n");}
+        | CHAR VARIABLE '[' VARIABLE ']' '=' '"' VARIABLE '"' ';'      { $$ = opr('?', 3, id($2), id($4), id($8)); printf("fuck:12\n");}
 		| INT VARIABLE '[' expr ']' ';'     { $$ = opr('[', 2, id($2), $4); }//printf("fuck:13\n");}
         | CHAR VARIABLE '[' expr ']' ';'    { $$ = opr('[', 2, id($2), $4); }//printf("fuck:14\n");}
         | DOUBLE VARIABLE '[' expr ']' ';'  { $$ = opr('[', 2, id($2), $4); }//printf("fuck:15\n");}
