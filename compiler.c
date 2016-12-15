@@ -32,6 +32,11 @@ int ex(nodeType *p) {
         break;
     case typeOpr:
         switch(p->opr.oper) {
+        case SIMICOLON:
+            printTab();
+        	ex(p->opr.op[0]);
+        	printf("\n");
+        	break;
         case WHILE:
             //printf("sw:3\n");
             printTab();
@@ -72,17 +77,16 @@ int ex(nodeType *p) {
                 /* if else */
                 printTab();
                 printf("if ");
-                ex(p->opr.op[0]);
-	        printf(":\n");
-		numOfTab++;
-                ex(p->opr.op[1]);
-                printf("\n");
-		numOfTab--;
-		printTab();
-                printf("else:\n");
-		numOfTab++;
-                ex(p->opr.op[2]);
-		numOfTab--;
+				ex(p->opr.op[0]);
+				printf(":\n");
+				numOfTab++;
+				ex(p->opr.op[1]);
+				numOfTab--;
+				printTab();
+				printf("else:\n");
+				numOfTab++;
+				ex(p->opr.op[2]);
+				numOfTab--;
             } else {
                 /* if */
                 printTab();
@@ -96,14 +100,14 @@ int ex(nodeType *p) {
             break;
         case PRINT:     
             //printf("sw:5\n");
-	    printTab();
+	   		printTab();
             printf("print(");
             ex(p->opr.op[0]);
             printf(")\n");
             break;
         case INPUT:
             //printf("sw:9\n");  
-	    printTab();
+	    	printTab();
             ex(p->opr.op[0]);
             printf(" = input()\n");
             break;
@@ -120,17 +124,22 @@ int ex(nodeType *p) {
 	        printf("\n");
 
             break;
-        case '[':     
-
-		printTab();
-
-		printf("%s = [0] * (", p->opr.op[0]->id.s);
-
-		ex(p->opr.op[1]);
-
-		printf(")\n");
-
-
+        case '[':
+        	if (p->opr.nops > 2) {
+        		printTab();
+        		ex(p->opr.op[0]);
+        		printf("[");
+        		ex(p->opr.op[1]);
+        		printf("] = ");
+        		ex(p->opr.op[2]);
+        		printf("\n");
+        	}
+        	else {     
+				printTab();
+				printf("%s = [0] * (", p->opr.op[0]->id.s);
+				ex(p->opr.op[1]);
+				printf(")\n");
+			}
             break;
         case ']':
             //printf("fuck\n");
@@ -138,6 +147,12 @@ int ex(nodeType *p) {
 	    ex(p->opr.op[1]);
             printf("]");
             break;
+        case '(':
+        	ex(p->opr.op[0]);
+        	printf("(");
+        	ex(p->opr.op[1]);
+        	printf(")");
+        	break;
         case ',':
             ex(p->opr.op[0]);
             printf(",");
@@ -184,8 +199,8 @@ int ex(nodeType *p) {
             break;
         case UMINUS:   
             //printf("sw:7\n"); 
+            printf("-");
             ex(p->opr.op[0]);
-            printf("UNIMUS");
             break;
         default:
             //printf("sw:8\n");

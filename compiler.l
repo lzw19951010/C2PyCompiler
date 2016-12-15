@@ -45,10 +45,23 @@ void yyerror(char *);
 "cin"           return INPUT;
 "return"        return RETURN;
 
-[a-zA-Z][_a-zA-Z0-9]*       { 
+"strlen("[^\n)]*")" { 
+                strcpy(yylval.sIndex,yytext+3);
+                return STRLEN;
+}
+
+[a-zA-Z][_a-zA-Z0-9]* { 
                 strcpy(yylval.sIndex,yytext);
                 return VARIABLE;
-            }
+}
+
+"#include "[<|"][_a-zA-Z0-9.]*[>|"] {
+	return IGNORE;
+}
+
+"//"[^\n]*"\n"	{
+	return IGNORE;
+}
 
 [ \t\n'"]+        ;       /* ignore whitespace */
 
