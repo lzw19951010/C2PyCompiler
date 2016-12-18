@@ -7,7 +7,9 @@ void yyerror(char *);
 
 %%
 
-
+"//"[^\n]*[\n]  {
+    return IGNORE;
+}
 
 0           {
                 yylval.iValue = atoi(yytext);
@@ -19,7 +21,7 @@ void yyerror(char *);
                 return INTEGER;
             }
 
-[-\[\]()<>=+*/,;{}.] {
+[-\[\]()<>=+*/,;{}."] {
                 return *yytext;
              }
 
@@ -59,11 +61,13 @@ void yyerror(char *);
 	return IGNORE;
 }
 
-"//"[^\n]*"\n"	{
-	return IGNORE;
+"using namespace "[_a-zA-Z0-9.]*[;] {
+    return IGNORE;
 }
 
-[ \t\n'"]+        ;       /* ignore whitespace */
+
+
+[ \t\n']+        ;       /* ignore whitespace */
 
 .               yyerror("UNKNOWNC");
 %%

@@ -49,36 +49,36 @@ function:
         ;
 
 stmt:
-          ';'                            { ; }//printf("fuck:1\n");}
-        | PRINT OUT expr ';'             { $$ = opr(PRINT, 1, $3); }//printf("fuck:3\n");}
-        | INPUT IN expr ';'              { $$ = opr(INPUT, 1, $3); }//printf("fuck:10\n");}
-        | expr ADDONE ';'                { $$ = opr(ADDONE, 1, $1); }//printf("fuck:11\n");}
-        | expr MINUONE ';'               { $$ = opr(MINUONE, 1, $1); }//printf("fuck:14\n");}
-        | VARIABLE '=' expr ';'          { $$ = opr('=', 2, id($1), $3); }//printf("fuck:4\n");}
-        | INT VARIABLE '=' expr ';'      { $$ = opr('=', 2, id($2), $4); }//printf("fuck:12\n");}
-        | INT VARIABLE ';'      { $$ = opr('?', 1, id($2)); }//printf("fuck:12\n");}
-        | DOUBLE VARIABLE ';'      { $$ = opr('?', 1, id($2)); }//printf("fuck:12\n");}
-        | CHAR VARIABLE ';'      { $$ = opr('?', 1, id($2)); }//printf("fuck:12\n");}
-        | CHAR VARIABLE '[' ']' '=' '"' VARIABLE '"' ';'      { $$ = opr('?', 2, id($2), id($7)); }//printf("fuck:12\n");}
-        | CHAR VARIABLE '[' VARIABLE ']' '=' '"' VARIABLE '"' ';'      { $$ = opr('?', 3, id($2), id($4), id($8)); printf("fuck:12\n");}
-		| INT VARIABLE '[' expr ']' ';'     { $$ = opr('[', 2, id($2), $4); }//printf("fuck:13\n");}
-        | CHAR VARIABLE '[' expr ']' ';'    { $$ = opr('[', 2, id($2), $4); }//printf("fuck:14\n");}
-        | DOUBLE VARIABLE '[' expr ']' ';'  { $$ = opr('[', 2, id($2), $4); }//printf("fuck:15\n");}
-        | CHAR VARIABLE '=' expr ';'     { $$ = opr(CHAR, 2, id($2), $4); }//printf("fuck:9\n");}
-        | DOUBLE VARIABLE '=' expr ';'   { $$ = opr('=', 2, id($2), $4); }//printf("fuck:13\n");}
-		| VARIABLE '[' expr ']' '=' expr ';'     { $$ = opr('[', 3, id($1), $3, $6); }//printf("fuck:13\n");}
-        | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); }//printf("fuck:5\n");}
-        | FOR '(' expr ';' expr ';' expr ')' stmt        { $$ = opr(FOR, 4, $3, $5, $7, $9); }//printf("fuck:15\n");}
-        | IGNORE 				         {;}
+          ';'                            { ; } 
+        | PRINT OUT expr ';'             { $$ = opr(PRINT, 1, $3); } 
+        | INPUT IN expr ';'              { $$ = opr(INPUT, 1, $3); } 
+        | expr ADDONE ';'                { $$ = opr(ADDONE, 1, $1); } 
+        | expr MINUONE ';'               { $$ = opr(MINUONE, 1, $1); } 
+        | VARIABLE '=' expr ';'          { $$ = opr('=', 2, id($1), $3); } 
+        | INT VARIABLE '=' expr ';'      { $$ = opr('=', 2, id($2), $4); } 
+        | INT VARIABLE ';'      { $$ = opr('?', 1, id($2)); } 
+        | DOUBLE VARIABLE ';'      { $$ = opr('?', 1, id($2)); } 
+        | CHAR VARIABLE ';'      { $$ = opr('?', 1, id($2)); } 
+        | CHAR VARIABLE '[' ']' '=' '"' VARIABLE '"' ';'      { $$ = opr('?', 2, id($2), id($7)); } 
+        | CHAR VARIABLE '[' INTEGER ']' '=' '"' VARIABLE '"' ';'      { $$ = opr('?', 3, id($2), con($4), id($8));}
+		| INT VARIABLE '[' INTEGER ']' ';'     { $$ = opr('[', 2, id($2), con($4)); } 
+        | CHAR VARIABLE '[' INTEGER ']' ';'    { $$ = opr('[', 2, id($2), con($4)); } 
+        | DOUBLE VARIABLE '[' INTEGER ']' ';'  { $$ = opr('[', 2, id($2), con($4)); } 
+        | CHAR VARIABLE '=' expr ';'     { $$ = opr(CHAR, 2, id($2), $4); } 
+        | DOUBLE VARIABLE '=' expr ';'   { $$ = opr('=', 2, id($2), $4); } 
+		| VARIABLE '[' expr ']' '=' expr ';'     { $$ = opr('[', 3, id($1), $3, $6); } 
+        | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); } 
+        | FOR '(' expr ';' expr ';' expr ')' stmt        { $$ = opr(FOR, 4, $3, $5, $7, $9); } 
+        | IGNORE 				         { $$ = id(""); }
         | VOID VARIABLE '(' argument_list ')' stmt    { $$ = opr(VOID, 3, id($2), $4, $6); }
         | INT VARIABLE '(' argument_list ')' stmt    { $$ = opr(VOID, 3, id($2), $4, $6); }
         | VOID VARIABLE '(' ')' stmt    { $$ = opr(VOID, 3, id($2), id(""), $5); }
         | INT VARIABLE '(' ')' stmt    { $$ = opr(VOID, 3, id($2), id(""), $5); }
         | RETURN expr ';'                { $$ = opr(RETURN, 1, $2);}
-        | IF '(' expr ')' stmt %prec IFX { $$ = opr(IF, 2, $3, $5); }//printf("fuck:6\n");}
-        | IF '(' expr ')' stmt ELSE stmt { $$ = opr(IF, 3, $3, $5, $7); }//printf("fuck:7\n");}
-        | '{' stmt_list '}'              { $$ = $2; }//printf("fuck:8\n");}
-        | expr ';'                       { $$ = opr(SIMICOLON, 1, $1); }//printf("fuck:2\n");}}
+        | IF '(' expr ')' stmt %prec IFX { $$ = opr(IF, 2, $3, $5); } 
+        | IF '(' expr ')' stmt ELSE stmt { $$ = opr(IF, 3, $3, $5, $7); } 
+        | '{' stmt_list '}'              { $$ = $2; } 
+        | expr ';'                       { $$ = opr(SIMICOLON, 1, $1); }
         ;
 
 stmt_list:
@@ -101,27 +101,27 @@ argument_list:
         ;
 
 expr:
-          INTEGER               { $$ = con($1); }//printf("ex:1\n");}
-        | VARIABLE              { $$ = id($1); }//printf("ex:2\n");}
+          INTEGER               { $$ = con($1); } 
+        | VARIABLE              { $$ = id($1); } 
         | STRLEN				{ $$ = id($1); }
         | VARIABLE '(' variable_list ')' {$$ = opr('(', 2, id($1), $3); }
         | VARIABLE '[' expr ']' { $$ = opr(']', 2, id($1), $3); }
-        | '-' expr %prec UMINUS { $$ = opr(UMINUS, 1, $2); }//printf("ex:3\n");}
-        | expr '+' expr         { $$ = opr('+', 2, $1, $3); }//printf("ex:4\n");}
-        | expr '-' expr         { $$ = opr('-', 2, $1, $3); }//printf("ex:5\n");}
-        | expr '*' expr         { $$ = opr('*', 2, $1, $3); }//printf("ex:6\n");}
-        | expr '/' expr         { $$ = opr('/', 2, $1, $3); }//printf("ex:7\n");}
-        | expr '<' expr         { $$ = opr('<', 2, $1, $3); }//printf("ex:8\n");}
-        | expr '>' expr         { $$ = opr('>', 2, $1, $3); }//printf("ex:9\n");}
-        | expr '=' expr         { $$ = opr('=', 2, $1, $3); }//printf("ex:9\n");}
-        | expr GE expr          { $$ = opr(GE, 2, $1, $3); }//printf("ex:10\n");}
-        | expr LE expr          { $$ = opr(LE, 2, $1, $3); }//printf("ex:11\n");}
-        | expr NE expr          { $$ = opr(NE, 2, $1, $3); }//printf("ex:12\n");}
-        | expr EQ expr          { $$ = opr(EQ, 2, $1, $3); }//printf("ex:13\n");}
-        | '(' expr ')'          { $$ = $2; }//printf("ex:14\n");}
-        | expr ADDONE           { $$ = opr(ADDONE, 1, $1); }//printf("ex:14\n");}
-        | expr AND expr_list          { $$ = opr(AND, 2, $1, $3); }//printf("ex:14\n");}
-        | expr OR expr_list           { $$ = opr(OR, 2, $1, $3); }//printf("ex:14\n");}
+        | '-' expr %prec UMINUS { $$ = opr(UMINUS, 1, $2); } 
+        | expr '+' expr         { $$ = opr('+', 2, $1, $3); } 
+        | expr '-' expr         { $$ = opr('-', 2, $1, $3); } 
+        | expr '*' expr         { $$ = opr('*', 2, $1, $3); } 
+        | expr '/' expr         { $$ = opr('/', 2, $1, $3); } 
+        | expr '<' expr         { $$ = opr('<', 2, $1, $3); } 
+        | expr '>' expr         { $$ = opr('>', 2, $1, $3); } 
+        | expr '=' expr         { $$ = opr('=', 2, $1, $3); } 
+        | expr GE expr          { $$ = opr(GE, 2, $1, $3); } 
+        | expr LE expr          { $$ = opr(LE, 2, $1, $3); } 
+        | expr NE expr          { $$ = opr(NE, 2, $1, $3); } 
+        | expr EQ expr          { $$ = opr(EQ, 2, $1, $3); } 
+        | '(' expr ')'          { $$ = $2; } 
+        | expr ADDONE           { $$ = opr(ADDONE, 1, $1); } 
+        | expr AND expr_list          { $$ = opr(AND, 2, $1, $3); } 
+        | expr OR expr_list           { $$ = opr(OR, 2, $1, $3); } 
         ;
 
 expr_list:
